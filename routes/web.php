@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BarangController;
+
+Route::get('/barang-table', [BarangController::class, 'table'])->name('tablebarang');
+Route::post('/barangstore', [BarangController::class, 'store'])->name('barangstore');
+Route::get('/barangadd', [BarangController::class, 'add'])->name('barangadd');
+Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 
 Route::get('/', function () {
     return view('welcome');
