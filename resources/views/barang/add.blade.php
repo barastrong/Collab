@@ -9,18 +9,18 @@
     <title>Add Barang</title>
 </head>
 <body>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Tambah Barang</div>
-                <div class="card-body">
+<div>
+    <div>
+        <div>
+            <div>
+                <div>Tambah Barang</div>
+                <div>
                     <form action="{{ route('barangstore') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         @if ($errors->any())
-                            <div class="alert alert-danger mb-3">
-                                <ul class="mb-0">
+                            <div>
+                                <ul>
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
@@ -28,30 +28,27 @@
                             </div>
                         @endif
 
-                        <div class="form-group mb-3">
-                            <label for="gambar" class="form-label">Gambar Barang</label>
+                        <div>
+                            <label for="gambar">Gambar Barang</label>
                             <input type="file" 
-                                   class="form-control @error('gambar') is-invalid @enderror" 
                                    id="gambar" 
                                    name="gambar" 
                                    accept="image/jpeg,image/png,image/jpg" 
                                    required>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="nama_barang" class="form-label">Nama Barang</label>
+                        <div>
+                            <label for="nama_barang">Nama Barang</label>
                             <input type="text" 
-                                   class="form-control @error('nama_barang') is-invalid @enderror" 
                                    id="nama_barang" 
                                    name="nama_barang" 
                                    value="{{ old('nama_barang') }}" 
                                    required>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="category" class="form-label">Kategori</label>
-                            <select class="form-control @error('category_id') is-invalid @enderror" 
-                                    id="category" 
+                        <div>
+                            <label for="category">Kategori</label>
+                            <select id="category" 
                                     name="category_id" 
                                     required>
                                 <option value="">Pilih Kategori</option>
@@ -64,29 +61,27 @@
                             </select>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="stok" class="form-label">Stok</label>
+                        <div>
+                            <label for="stok">Stok</label>
                             <input type="number" 
-                                   class="form-control @error('stok') is-invalid @enderror" 
                                    id="stok" 
                                    name="stok" 
                                    value="{{ old('stok') }}" 
                                    required>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="harga" class="form-label">Harga</label>
+                        <div>
+                            <label for="harga">Harga</label>
                             <input type="number" 
-                                   class="form-control @error('harga') is-invalid @enderror" 
                                    id="harga" 
                                    name="harga" 
                                    value="{{ old('harga') }}" 
                                    required>
                         </div>
 
-                        <div class="form-group d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">Tambah</button>
-                            <a href="{{ route('tablebarang') }}" class="btn btn-secondary">Kembali</a>
+                        <div>
+                            <button type="submit">Tambah</button>
+                            <a href="{{ route('tablebarang') }}">Kembali</a>
                         </div>
                     </form>
                 </div>

@@ -8,7 +8,12 @@ use App\Models\Category;
 
 class BarangController extends Controller
 {
-    public function index(Request $request)
+    public function index()
+    {
+        $barangs = Barang::all();
+        return view('barang.index', compact('barangs'));
+    }
+    public function category(Request $request)
     {
         $categories = Category::all();
         $category_id = $request->query('category');
@@ -17,7 +22,7 @@ class BarangController extends Controller
             return $query->where('category_id', $category_id);
         })->get();
         
-        return view('barang.index', compact('barangs', 'categories'));
+        return view('barang.category', compact('barangs', 'categories'));
     }
 
     public function table()

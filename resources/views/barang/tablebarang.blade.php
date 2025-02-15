@@ -9,15 +9,15 @@
     <title>Document</title>
 </head>
 <body>
-<div class="container">
+<div>
     <h1>Welcome to my Laravel application</h1>
 
-    <div class="mb-3">
-        <a href="{{ route('barangadd') }}" class="btn btn-primary">Tambah barang</a>
+    <div>
+        <a href="{{ route('barangadd') }}">Tambah barang</a>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+    <div>
+        <table>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -36,7 +36,6 @@
                             @if ($brg->gambar)
                                 <img src="{{ asset('images/' . $brg->gambar) }}" 
                                      alt="Image" 
-                                     class="img-thumbnail"
                                      style="max-width: 100px;">
                             @else
                                 No image
@@ -49,7 +48,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center">Tidak ada barang tersedia</td>
+                        <td colspan="6">Tidak ada barang tersedia</td>
                     </tr>
                 @endforelse
             </tbody>
