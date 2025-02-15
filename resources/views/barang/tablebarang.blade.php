@@ -45,6 +45,14 @@
                         <td>{{ $brg->stok }}</td>
                         <td>{{ $brg->category->name ?? 'Tidak ada kategori' }}</td>
                         <td>Rp {{ number_format($brg->harga, 0, ',', '.') }}</td>
+                        <td>
+                            <a href="{{ route('edit', $brg) }}">Edit</a>
+                        </td>
+                        <td>
+                            <form action="">
+                                <a href="">Delete</a>
+                            </form>
+                        </td>
                     </tr>
                 @empty
                     <tr>

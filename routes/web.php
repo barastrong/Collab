@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BarangController::class, 'index'])->name('index');
@@ -10,11 +11,8 @@ Route::get('/barang-category', [BarangController::class, 'category'])->name('bar
 Route::get('/barang-table', [BarangController::class, 'table'])->name('tablebarang');
 Route::get('/barangadd', [BarangController::class, 'add'])->name('barangadd');
 Route::post('/barangstore', [BarangController::class, 'store'])->name('barangstore');
-
-// routes/web.php
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
+Route::get('/barang/edit/{id}', [BarangController::class, 'edit'])->name('edit');
+Route::put('/barang/update/{id}', [BarangController::class, 'update'])->name('barang.update');
 
 // Purchase routes
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -23,6 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/', [PurchaseController::class, 'store'])->name('purchases.store');
         Route::get('/purchases/{purchase}', [PurchaseController::class, 'show'])->name('purchases.show');
         Route::patch('/purchases/{purchase}/cancel', [PurchaseController::class, 'cancel'])->name('purchases.cancel');
+        Route::get('ordertable', [PurchaseController::class, 'table'])->name('ordertable');
+        Route::post('/purchases/{purchase}/update-status', [PurchaseController::class, 'updateStatus'])->name('purchases.updateStatus');
+
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

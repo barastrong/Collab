@@ -37,9 +37,11 @@
                         
                         <div>
                             @if($barang->stok > 0)
-                                <button>
+                            <a href="{{ route('purchases.create', $barang->id) }}">
+                            <button>
                                     Beli Sekarang
                                 </button>
+                            </a>
                             @else
                                 <button disabled>
                                     Stok Habis

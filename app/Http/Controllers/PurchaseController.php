@@ -141,4 +141,54 @@ class PurchaseController extends Controller
 
         return view('purchase.index', compact('purchases'));
     }
+    public function table(){
+        $buy = Purchase::with(['barang'])
+        ->where('user_id', auth()->id())
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('purchase.orders', compact('buy'));
+    }
+    public function updateStatus(Request $request, Purchase $purchase)
+{
+    // Validate the request
+    $request->validate([
+        'status' => 'required|in:pending,processing,shipped,completed,cancelled'
+    ]);
+
+    try {
+        DB::beginTransaction();
+
+        // Update the status
+        $purchase->update([
+            'status' => $request->status
+        ]);
+
+        // If status is changed to cancelled and it was not cancelled before,
+        // return the stock
+        if ($request->status === 'cancelled' && $purchase->getOriginal('status') !== 'cancelled') {
+            $purchase->barang->increment('stok', $purchase->quantity);
+        }
+        // If status is changed from cancelled to something else,
+        // deduct the stock again
+        else if ($purchase->getOriginal('status') === 'cancelled' && $request->status !== 'cancelled') {
+            $purchase->barang->decrement('stok', $purchase->quantity);
+        }
+
+        DB::commit();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diperbarui'
+        ]);
+
+    } catch (\Exception $e) {
+        DB::rollback();
+        Log::error('Error updating purchase status: ' . $e->getMessage());
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Terjadi kesalahan saat memperbarui status'
+        ], 500);
+    }
+}
 }

@@ -28,7 +28,8 @@
                         </div>
                         <!-- Logo and Navigation Container -->
                         <div class="flex-1 flex justify-center items-center">
-                        <a href="{{ route('index') }}" 
+                            <!-- Centered Navigation Links -->
+                            <a href="{{ route('index') }}" 
                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
                                             Home
                                         </a>
@@ -40,8 +41,7 @@
                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
                                             My Orders
                                         </a>
-                            <!-- Centered Navigation Links -->
-                            <div class="hidden sm:flex space-x-8">
+                                        <div class="hidden sm:flex space-x-8">
                                 @auth
                                     @if(auth()->user()->isAdmin())
                                         <a href="{{ route('admin.dashboard') }}" 
@@ -80,6 +80,10 @@
                                         <x-dropdown-link :href="route('tablebarang')" 
                                                            class="hover:text-green-600 transition duration-300">
                                                 {{ __('Table Barang') }}
+                                            </x-dropdown-link>
+                                            <x-dropdown-link :href="route('ordertable')" 
+                                                           class="hover:text-green-600 transition duration-300">
+                                                {{ __('orders admin') }}
                                             </x-dropdown-link>
                                             <x-dropdown-link :href="route('profile.edit')" 
                                                            class="hover:text-green-600 transition duration-300">
