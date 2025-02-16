@@ -41,6 +41,14 @@
                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
                                             My Orders
                                         </a>
+                                        <a href="{{ route('ordertable') }}" 
+                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                            Order admin
+                                        </a>
+                                        <a href="{{ route('user-table') }}" 
+                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                            User Table
+                                        </a>
                                         <div class="hidden sm:flex space-x-8">
                                 @auth
                                     @if(auth()->user()->isAdmin())
@@ -52,7 +60,6 @@
                                 @endauth
                             </div>
                         </div>
-
                         <!-- Auth Links -->
                         <div class="flex items-center space-x-4">
                             @guest
@@ -80,10 +87,6 @@
                                         <x-dropdown-link :href="route('tablebarang')" 
                                                            class="hover:text-green-600 transition duration-300">
                                                 {{ __('Table Barang') }}
-                                            </x-dropdown-link>
-                                            <x-dropdown-link :href="route('ordertable')" 
-                                                           class="hover:text-green-600 transition duration-300">
-                                                {{ __('orders admin') }}
                                             </x-dropdown-link>
                                             <x-dropdown-link :href="route('profile.edit')" 
                                                            class="hover:text-green-600 transition duration-300">

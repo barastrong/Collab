@@ -96,12 +96,10 @@ class PurchaseController extends Controller
 
     public function cancel(Purchase $purchase)
     {
-        // Validasi kepemilikan purchase
         if ($purchase->user_id !== auth()->id()) {
             abort(403, 'Unauthorized action.');
         }
     
-        // Validasi status pembelian
         if ($purchase->status !== 'pending') {
             return redirect()->back()
                 ->with('error', 'Hanya pembelian dengan status pending yang dapat dibatalkan.');
@@ -110,17 +108,15 @@ class PurchaseController extends Controller
         try {
             DB::beginTransaction();
     
-            // Update status pembelian
             $purchase->update([
                 'status' => 'cancelled'
             ]);
     
-            // Kembalikan stok barang
-            $purchase->barang->increment('stock', $purchase->quantity);
+            $purchase->barang->increment('stok', $purchase->quantity);
     
             DB::commit();
     
-            return redirect()->route('purchases.show', $purchase->id)
+            return redirect()->route('ordertable')
                 ->with('success', 'Pembelian berhasil dibatalkan.');
     
         } catch (\Exception $e) {
@@ -142,10 +138,7 @@ class PurchaseController extends Controller
         return view('purchase.index', compact('purchases'));
     }
     public function table(){
-        $buy = Purchase::with(['barang'])
-        ->where('user_id', auth()->id())
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $buy = Purchase::all();
         return view('purchase.orders', compact('buy'));
     }
     public function updateStatus(Request $request, Purchase $purchase)

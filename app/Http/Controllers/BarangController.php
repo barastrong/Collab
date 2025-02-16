@@ -46,19 +46,18 @@ class BarangController extends Controller
             'category_id' => 'required|exists:categories,id',
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
-        $image = $request->file('gambar');
-        $newName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images'), $newName);
-
-        Barang::create([
-            'nama_barang' => $request->nama_barang,
-            'category_id' => $request->category_id,
-            'harga' => $request->harga,
-            'stok' => $request->stok,
-            'gambar' => $newName,
-        ]);
-
+    
+        $data = $request->all();
+    
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $newName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $newName);
+            $data['gambar'] = $newName;
+        }
+    
+        Barang::create($data);
+    
         return redirect()->route('tablebarang')->with('success', 'Barang berhasil ditambahkan');
     }
 
@@ -78,28 +77,60 @@ class BarangController extends Controller
             'category_id' => 'required|exists:categories,id',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
-        $barang = Barang::find($id);
-
+    
+        $barang = Barang::findOrFail($id);
+        $data = $request->except('gambar');
+    
         if ($request->hasFile('gambar')) {
             // Delete old image
-            if (file_exists(public_path('images/' . $barang->gambar))) {
+            if ($barang->gambar && file_exists(public_path('images/' . $barang->gambar))) {
                 unlink(public_path('images/' . $barang->gambar));
             }
-
+    
             $image = $request->file('gambar');
             $newName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $newName);
-            $barang->gambar = $newName;
+            $data['gambar'] = $newName;
         }
-
-        $barang->update([
-            'nama_barang' => $request->nama_barang,
-            'category_id' => $request->category_id,
-            'harga' => $request->harga,
-            'stok' => $request->stok,
-        ]);
-
+    
+        $barang->update($data);
+    
         return redirect()->route('tablebarang')->with('success', 'Barang berhasil diupdate');
+    }
+
+    public function delete($id)
+    {
+        $barang = Barang::findOrFail($id);
+        
+        if ($barang->gambar && file_exists(public_path('images/' . $barang->gambar))) {
+            unlink(public_path('images/' . $barang->gambar));
+        }
+        
+        $barang->delete();
+        
+        return redirect()->route('tablebarang')->with('success', 'Barang berhasil dihapus');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $returnTo = $request->input('return_to', 'index');
+        
+        $barangs = Barang::where('nama_barang', 'LIKE', "%{$query}%")
+                         ->orWhere('harga', 'LIKE', "%{$query}%")
+                         ->with('category')
+                         ->get();
+        
+        $categories = Category::all();
+        
+        // Return to the appropriate view based on the source
+        switch($returnTo) {
+            case 'category':
+                return view('barang.category', compact('barangs', 'categories', 'query'));
+            case 'tablebarang':
+                return view('barang.tablebarang', compact('barangs', 'query'));
+            default:
+                return view('barang.index', compact('barangs', 'query'));
+        }
     }
 }

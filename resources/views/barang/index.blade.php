@@ -11,6 +11,14 @@
 <body>
 <div>
     <div>
+    <form action="{{ route('barang.search') }}" method="GET" class="d-flex">
+    <input type="text" name="query" class="form-control me-2" 
+           value="{{ request('query') }}" 
+           placeholder="Cari nama barang atau harga...">
+    {{-- Add a hidden input to track the current page --}}
+    <input type="hidden" name="return_to" value="{{ Route::currentRouteName() }}">
+    <button type="submit" class="btn btn-primary">Cari</button>
+</form>
         <h1>Daftar Barang</h1>
 
         <!-- Products Grid -->

@@ -21,6 +21,7 @@
     <thead>
         <tr>
             <th>Kode Pembelian</th>
+            <th>User ID</th>
             <th>Barang</th>
             <th>Jumlah</th>
             <th>Ukuran</th>
@@ -36,6 +37,7 @@
         @forelse ($buy as $purchase)
             <tr>
                 <td>{{ $purchase->purchase_code }}</td>
+                <td>{{ $purchase->user_id }}</td>
                 <td>{{ $purchase->barang->nama }}</td>
                 <td>{{ $purchase->quantity }}</td>
                 <td>{{ $purchase->size }}</td>

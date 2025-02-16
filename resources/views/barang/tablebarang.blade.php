@@ -49,9 +49,12 @@
                             <a href="{{ route('edit', $brg) }}">Edit</a>
                         </td>
                         <td>
-                            <form action="">
-                                <a href="">Delete</a>
-                            </form>
+                        <form action="{{ route('delete', $brg) }}" method="POST">
+                            @csrf
+
+                            @method('DELETE')
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
                         </td>
                     </tr>
                 @empty
