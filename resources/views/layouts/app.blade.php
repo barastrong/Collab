@@ -14,10 +14,10 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-white">
-        <div class="min-h-screen flex flex-col">
+    <body class="font-sans antialiased">
+        <div class="min-h-screen flex flex-col bg-gray-50">
             <!-- Navigation -->
-            <nav class="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300">
+            <nav class="bg-white shadow-md sticky top-0 z-50 transition-all duration-300">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-20">
                         <!-- Logo -->
@@ -26,56 +26,55 @@
                                 Shopify
                             </a>
                         </div>
-                        <!-- Logo and Navigation Container -->
-                        <div class="flex-1 flex justify-center items-center">
-                            <!-- Centered Navigation Links -->
+
+                        <!-- Navigation Links -->
+                        <div class="flex-1 flex justify-center items-center space-x-4">
                             <a href="{{ route('index') }}" 
-                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
-                                            Home
-                                        </a>
-                                        <a href="{{ route('barang') }}" 
-                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
-                                            Products
-                                        </a>
-                                        <a href="{{ route('purchases.index') }}" 
-                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
-                                            My Orders
-                                        </a>
-                                        <a href="{{ route('ordertable') }}" 
-                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
-                                            Order admin
-                                        </a>
-                                        <a href="{{ route('user-table') }}" 
-                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
-                                            User Table
-                                        </a>
-                                        <div class="hidden sm:flex space-x-8">
-                                @auth
-                                    @if(auth()->user()->isAdmin())
-                                        <a href="{{ route('admin.dashboard') }}" 
-                                           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
-                                            Admin Dashboard
-                                        </a>
-                                    @endif
-                                @endauth
-                            </div>
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                Home
+                            </a>
+                            <a href="{{ route('barang') }}" 
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                Products
+                            </a>
+                            <a href="{{ route('purchases.index') }}" 
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                My Orders
+                            </a>
+                            <a href="{{ route('ordertable') }}" 
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                Order Admin
+                            </a>
+                            <a href="{{ route('user-table') }}" 
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                User Table
+                            </a>
+                            @auth
+                                @if(auth()->user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}" 
+                                       class="inline-flex items-center px-6 py-3 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-full transition duration-300">
+                                        Admin Dashboard
+                                    </a>
+                                @endif
+                            @endauth
                         </div>
+
                         <!-- Auth Links -->
                         <div class="flex items-center space-x-4">
                             @guest
                                 <a href="{{ route('login') }}" 
-                                   class="text-gray-600 hover:text-green-600 px-4 py-2 text-sm font-medium transition duration-300">
+                                   class="px-6 py-2 text-sm font-medium text-green-600 hover:text-green-700 transition duration-300">
                                     Login
                                 </a>
                                 <a href="{{ route('register') }}" 
-                                   class="text-gray-600 hover:text-green-600 px-4 py-2 text-sm font-medium transition duration-300">
+                                   class="px-6 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-full transition duration-300">
                                     Register
                                 </a>
                             @else
                                 <div class="relative">
                                     <x-dropdown align="right" width="48">
                                         <x-slot name="trigger">
-                                            <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-gray-600 bg-gray-50 hover:bg-gray-100 focus:outline-none transition duration-300">
+                                            <button class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-full text-gray-600 bg-gray-50 hover:bg-gray-100 focus:outline-none transition duration-300">
                                                 <div>{{ Auth::user()->name }}</div>
                                                 <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -84,10 +83,6 @@
                                         </x-slot>
 
                                         <x-slot name="content">
-                                        <x-dropdown-link :href="route('tablebarang')" 
-                                                           class="hover:text-green-600 transition duration-300">
-                                                {{ __('Table Barang') }}
-                                            </x-dropdown-link>
                                             <x-dropdown-link :href="route('profile.edit')" 
                                                            class="hover:text-green-600 transition duration-300">
                                                 {{ __('Profile') }}
@@ -112,22 +107,24 @@
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white">
+                <header class="bg-white shadow-sm">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
 
-            <!-- Page Content -->
-            <main class="flex-grow bg-white">
-                <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-                    @yield('content')
+            <!-- Main Content -->
+            <main class="flex-grow bg-gray-50 py-12">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white rounded-2xl shadow-sm p-8">
+                        @yield('content')
+                    </div>
                 </div>
             </main>
 
             <!-- Footer -->
-            <footer class="bg-white border-t border-gray-100">
+            <footer class="bg-white border-t border-gray-100 mt-12">
                 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <!-- Brand Section -->
@@ -143,6 +140,12 @@
                                 </a>
                                 <a href="#" class="text-gray-400 hover:text-green-600 transition duration-300">
                                     <span class="sr-only">Twitter</span>
+                                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-green-600 transition duration-300">
+                                    <span class="sr-only">instagram</span>
                                     <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
                                     </svg>
