@@ -67,7 +67,7 @@
                                     Login
                                 </a>
                                 <a href="{{ route('register') }}" 
-                                   class="px-6 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-full transition duration-300">
+                                   class="px-6 py-2 text-sm font-medium text-green-600 hover:text-green-700 transition duration-300">
                                     Register
                                 </a>
                             @else
@@ -86,6 +86,10 @@
                                             <x-dropdown-link :href="route('profile.edit')" 
                                                            class="hover:text-green-600 transition duration-300">
                                                 {{ __('Profile') }}
+                                            </x-dropdown-link>
+                                            <x-dropdown-link :href="route('tablebarang')" 
+                                                           class="hover:text-green-600 transition duration-300">
+                                                    Table Barang            
                                             </x-dropdown-link>
 
                                             <form method="POST" action="{{ route('logout') }}">
